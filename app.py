@@ -9,16 +9,14 @@ model = joblib.load("customer_churn_model.pkl")
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    try:
-        # Get JSON data from the request
-        input_data = request.get_json()
-        # Convert it to a DataFrame
-        input_df = pd.DataFrame(input_data)
-        # Predict probabilities
-        predictions = model.predict(input_df).tolist()
-        return jsonify({"predictions": predictions})
-    except Exception as e:
-        return jsonify({"error": str(e)})
+    if request.method == 'POST':
+        # Handle POST request
+        data = request.get_json()
+        return jsonify({"received_data": data})
+    else:
+        # Handle GET request
+        return "This is the predict endpoint. Use POST to submit data."
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
