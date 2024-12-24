@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Load the trained model
 model = joblib.load("customer_churn_model.pkl")
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
     try:
         # Get JSON data from the request
@@ -22,3 +22,5 @@ def predict():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
+
